@@ -7,7 +7,7 @@ for use in Python projects or via the Python shell.
 import httplib2
 import base64
 import json
-import socks
+from httplib2 import socks
 
 API_HOST = 'http://store.mybigcommerce.com'
 API_PATH = '/api/v2'

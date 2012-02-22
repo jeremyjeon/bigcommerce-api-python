@@ -35,6 +35,5 @@ speakers.description = "This is a description"
 speakers.update()
 ```
 
-Read up on the BigCommerce API:
-http://bigcommerce.springmerchant.com
+Read up on the [BigCommerce API](http://bigcommerce.springmerchant.com/ "BigCommerce API") 
 

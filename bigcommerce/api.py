@@ -44,7 +44,7 @@ class Connection(object):
 			proxy = httplib2.ProxyInfo(socks.PROXY_TYPE_HTTP, self.http_proxy, self.http_proxy_port)
 			http = httplib2.Http(proxy_info=proxy)
 		else:
-			http = httplib2.Http()
+			http = httplib2.Http(disable_ssl_certificate_validation=True)
 		url = self.host + self.base_path + path
 		headers = self.build_request_headers()
 		if body: headers['Content-Type'] = 'application/json'

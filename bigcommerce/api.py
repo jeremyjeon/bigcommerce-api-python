@@ -10,10 +10,10 @@ import json
 from httplib2 import socks
 import urllib
 
-API_HOST = 'https://store-0cabd.mybigcommerce.com'
+API_HOST = 'http://store.mybigcommerce.com'
 API_PATH = '/api/v2'
 API_USER = 'admin'
-API_KEY = '955883234e50f953ca7ea8b9050652de'
+API_KEY  = 'yourpasswordhere'
 HTTP_PROXY = None
 HTTP_PROXY_PORT = 80
 
@@ -61,8 +61,25 @@ class Resource(object):
 
     client = Connection()
 
-    def __init__(self, fields=None):
+    def __init__(self, fields=None, paginate_by=10, current_page=1):
         self.__dict__ = fields or dict()
+
+        self.paginate_by = paginate_by
+        self.current_page = current_page
+
+    def __iter__(self):
+        return self
+
+    def next(self):
+        self.current_page = self.current_page + 1
+
+        resource_list = self.get()
+
+        if not resource_list:
+            raise StopIteration
+        else:
+            return resource_list
+
 
 
 class Time(Resource):
@@ -77,10 +94,6 @@ class Time(Resource):
 class Products(Resource):
     """The collection of products in a store"""
 
-    def __init__(self, paginate_by=5, current_page=1):
-        self.paginate_by = paginate_by
-        self.current_page = current_page
-
     def get(self):
         """Returns list of products"""
         products_list = self.client.request_json('GET', '/products?limit=%s&page=%s' % (self.paginate_by, self.current_page))
@@ -91,19 +104,6 @@ class Products(Resource):
         """Returns an individual product by given ID"""
         product = self.client.request_json('GET', '/products/' + str(id))
         return Product(product)
-
-    def __iter__(self):
-        return self
-
-    def next(self):
-        self.current_page = self.current_page + 1
-
-        product_list = self.get()
-
-        if not product_list:
-            raise StopIteration
-        else:
-            return product_list
 
 
 class Product(Resource):

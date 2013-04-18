@@ -12,8 +12,8 @@ import urllib
 
 API_HOST = 'http://store.mybigcommerce.com'
 API_PATH = '/api/v2'
-API_USER = 'admin'
-API_KEY  = 'yourpasswordhere'
+API_USER = 'jeremy@cherriehouse.com.au'
+API_KEY  = 'jeremy123'
 HTTP_PROXY = None
 HTTP_PROXY_PORT = 80
 
